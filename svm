@@ -1,0 +1,26 @@
+if [$# < 1]
+then
+echo "usage: $0 installname"
+fi
+echo "Creating .scratch folder, if nonexistent:"
+cd $HOME
+mkdir .scratch
+cd .scratch
+mkdir $1
+cd $1
+echo "Cloning GUI"
+git clone https://github.com/TurboWarp/scratch-gui.git
+cd scratch-gui
+npm install
+npm link
+cd ..
+echo "Cloning VM"
+git clone https://github.com/TurboWarp/scratch-vm.git
+cd scratch-vm
+npm install
+npm link
+cd ..
+cd scratch-gui
+npm link scratch-vm scratch-gui
+echo "Starting..."
+npm start
